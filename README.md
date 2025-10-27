@@ -1,6 +1,3 @@
-#もぎたて
-
-
 # Dockerビルド
 
 1.git clone git@github.com:yukayamamioyuto101/mogitate.git
