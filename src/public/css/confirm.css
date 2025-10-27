@@ -1,0 +1,88 @@
+/* confirm.css */
+
+/* コンテナ */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 見出し */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* フォーム内の各項目 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group strong {
+    font-size: 16px;
+    color: #555;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* 商品画像 */
+.product-image {
+    max-width: 200px;
+    margin-top: 10px;
+    display: block;
+}
+
+/* 季節の表示 */
+.season-name {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: normal;
+    color: #555;
+}
+
+/* ボタンのスタイル */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-back:hover {
+    background-color: #5a6268;
+}
+
+.btn-submit {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}

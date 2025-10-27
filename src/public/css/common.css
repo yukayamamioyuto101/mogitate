@@ -1,0 +1,25 @@
+body {
+    background-color: #f0f0f0;
+    /* 薄いグレー */
+    margin: 0;
+    /* ブラウザデフォルトの余白を消す */
+    max-width:100%;
+}
+
+.header{
+    background:#FFFFFF;
+}
+
+.header-inner{
+    max-width: 1230px;
+}
+
+.site-title {
+    font-size: 16px;
+    /* 高さ30pxに合わせて小さめ */
+    color: #FFD700;
+    /* 文字を黄色に */
+    margin: 0;
+    padding: 3px 5px;
+    font-family: 'Roboto', sans-serif;
+}
