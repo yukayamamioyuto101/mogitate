@@ -4,6 +4,10 @@
 /storage/*
 !/storage/app/public
 !/storage/app/public/images
+/storage/framework/*
+!/storage/framework/cache
+!/storage/framework/sessions
+!/storage/framework/views
 /vendor
 /docker/mysql/data/
 /.idea

@@ -28,7 +28,7 @@
         <form action="{{ route('products.index') }}" method="GET" class="sort-form">
             <p class="sort-form-content">価格順で表示</p>
             <select name="sort" onchange="this.form.submit()" class="sort-select">
-                <option value="">並び替え</option>
+                <option value="">価格で並び替え</option>
                 <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>価格が安い順</option>
                 <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>価格が高い順</option>
             </select>

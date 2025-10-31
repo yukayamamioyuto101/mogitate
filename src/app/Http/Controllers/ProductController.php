@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Season;
 use App\Models\Product_Season;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProductController extends Controller
@@ -30,6 +31,11 @@ class ProductController extends Controller
 
         return view('products.index', compact('products', 'seasons'));
     }
+
+       public function create(){
+      $seasons=Season::all();
+      return view('products.register',compact('seasons'));
+   }
 
     public function show($id)
    {
@@ -78,39 +84,53 @@ class ProductController extends Controller
     // ④ 一覧ページにリダイレクト
     return redirect()->route('products.index')->with('success', '商品を削除しました');
    }
-
-   public function create(){
-      $seasons=Season::all();
-      return view('products.register',compact('seasons'));
-   }
-
+   
    public function confirm(ProductRequest $request)
-  {
-    $products=$request->only(['name','price','image','description']);
-    $seasons = $request->input('season_id', []);
-    return view('products.confirm', compact('products','seasons'));
-  }
+{
+    // 画像を一時保存
+    $path = $request->file('image')->store('images/tmp', 'public');
 
-    public function store(ProductRequest $request)
-   {
-    // 画像を storage/app/public/images に保存
-    $imagePath = $request->file('image')->store('images', 'public');
+    // データと一緒にセッションに保存
+    session([
+        'tmp_product' => [
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'image' => $path,
+            'season_id' => $request->season_id,
+        ]
+    ]);
 
-    // 商品を作成
+    $seasons = Season::all();
+
+    return view('products.confirm', [
+        'products' => session('tmp_product'),
+        'seasons' => $seasons
+    ]);
+}
+
+public function store()
+{
+    $tmp = session()->pull('tmp_product'); // 取り出すと同時にセッション削除
+
+    if (!$tmp || !Storage::disk('public')->exists($tmp['image'])) {
+        return redirect()->route('products.register')->with('error', '画像が見つかりません');
+    }
+
+    $newPath = str_replace('images/tmp/', 'images/', $tmp['image']);
+    Storage::disk('public')->move($tmp['image'], $newPath);
+
     $product = Product::create([
-        'name' => $request->name,
-        'price' => $request->price,
-        'description' => $request->description,
-        'image' => $imagePath,
-        ]);
+        'name' => $tmp['name'],
+        'price' => $tmp['price'],
+        'description' => $tmp['description'],
+        'image' => $newPath,
+    ]);
 
-     // 商品と季節を関連付ける
-    $product->seasons()->sync($request->season_id);
+    $product->seasons()->sync($tmp['season_id'] ?? []);
 
-    // 成功メッセージ付きで商品一覧ページにリダイレクト
     return redirect()->route('products.index')->with('success', '商品を登録しました');
-   }
-
+}
 }
 
 

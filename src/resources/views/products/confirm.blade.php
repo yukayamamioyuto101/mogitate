@@ -6,51 +6,76 @@
 
 @section('content')
 <div class="container">
-    <h1>商品登録確認</h1>
+    <h1 class="page-title">商品登録</h1>
 
-    <form action="{{ route('products.create') }}" method="POST">
+    <form action="{{ route('products.store') }}" method="POST">
     @csrf
 
-    <input type="hidden" name="name" value="{{ $products['name'] }}">
-    <input type="hidden" name="price" value="{{ $products['price'] }}">
-    <input type="hidden" name="image" value="{{ $products['image'] }}">
-    <input type="hidden" name="description" value="{{ $products['description'] }}">
-
     <div class="form-group">
-        <strong>商品名:</strong> {{ $product['name'] }}
-        <input type="text" name="name" value="{{ $product['name'] }}" readonly>
+      <div class="form-label">
+        <strong>商品名</strong> 
+        <span class="form__label--required">必須</span>
+      </div>
+        <input type="text" name="name" value="{{ $products['name'] }}" readonly>
     </div>
 
     <div class="form-group">
-        <strong>価格:</strong> ¥{{ number_format($product['price']) }}
-        <input type="text" name="price" value="{{ $product['price'] }}" readonly>
+      <div class="form-label">
+        <strong>価格:</strong> 
+        <span class="form__label--required">必須</span>
+      </div>
+        <input type="text" name="price" value="{{ $products['price'] }}" readonly>
     </div>
 
     <div class="form-group">
-        <strong>商品画像:</strong><br>
-        <img src="{{ asset('storage/' . $product['image_path']) }}" alt="商品画像" class="product-image">
-        <input type="text" name="image_path" value="{{ $product['image_path'] }}" readonly>
+      <div class="form-label">
+        <strong>商品画像</strong><br>
+        <span class="form__label--required">必須</span>
+      </div>
+        <img src="{{ asset('storage/' . $products['image']) }}" alt="商品画像" class="product-image">
+         <input type="hidden" name="image" value="{{ $products['image'] }}">
     </div>
 
-    <div class="form-group">
-        <strong>季節:</strong>
+   <div class="form-group">
+    <div class="form-label">
+      <strong>季節</strong>
+      <span class="form__label--required">必須</span>
+      <p class="form__label--selection">複数選択可</p>
+    </div>
+    <div class="checkbox-group">
         @foreach($seasons as $season)
-            <span class="season-name">{{ $season->name }}</span>
-            <input type="text" name="season_id[]" value="{{ $season->id }}" readonly>
+            <label>
+                <input 
+                    type="checkbox" 
+                    name="season_id[]" 
+                    value="{{ $season->id }}"
+                    {{ in_array($season->id, $products['season_id'] ?? []) ? 'checked' : '' }} 
+                    disabled>
+                {{ $season->name }}
+            </label>
+        @endforeach
+
+        {{-- hiddenで選択された値を送信する --}}
+        @foreach($products['season_id'] ?? [] as $id)
+            <input type="hidden" name="season_id[]" value="{{ $id }}">
         @endforeach
     </div>
+</div>
+
 
     <div class="form-group">
-        <strong>商品説明:</strong>
-        <p>{{ $product['description'] }}</p>
-        <input type="text" name="description" value="{{ $product['description'] }}" readonly>
+      <div class="form-label">
+        <strong>商品説明</strong>
+        <span class="form__label--required">必須</span>
+      </div>
+        <input type="text" name="description" value="{{ $products['description'] }}" readonly>
     </div>
 
     <div class="form-buttons">
         <a href="{{ route('products.register') }}" class="btn btn-back">戻る</a>
         <button type="submit" class="btn btn-submit">登録する</button>
     </div>
-    </form>
+  </form>
 </div>
 @endsection
 

@@ -13,8 +13,11 @@
 
         <!-- 商品名 -->
         <div class="form-group">
-            <label for="name">商品名 <span class="required">*</span></label>
-            <input type="text" name="name" id="name" value="{{ old('name') }}" ><span class="form__label--required">必須</span>
+           <div class="form-label">
+             <label for="name">商品名</label>
+             <span class="form__label--required">必須</span>
+           </div>
+            <input type="text" name="name" id="name" value="{{ old('name') }}" >
             @if($errors->has('name'))
            <div class="text-danger">
             @foreach($errors->get('name') as $message)
@@ -26,8 +29,11 @@
 
         <!-- 価格 -->
         <div class="form-group">
-            <label for="price">価格 <span class="required">*</span></label>
-            <input type="number" name="price" id="price" value="{{ old('price') }}"><span class="form__label--required">必須</span>
+          <div class="form-label">
+            <label for="price">価格 </label>
+            <span class="form__label--required">必須</span>
+          </div>
+            <input type="number" name="price" id="price" value="{{ old('price') }}">
             @if($errors->has('price'))
            <div class="text-danger">
             @foreach($errors->get('price') as $message)
@@ -39,9 +45,11 @@
 
         <!-- 商品画像 -->
         <div class="form-group">
-            <label for="image">商品画像 <span class="required">*</span></label>
+          <div class="form-label">
+            <label for="image">商品画像 </label>
            <span class="form__label--required">必須</span>
-           <input type="file" name="image" id="image" accept=".png,.jpeg">
+         </div>
+           <input type="file" name="image" id="image" accept=".png,.jpeg" >
 
             @if ($errors->has('image'))
             <div class="text-danger">
@@ -54,9 +62,12 @@
 
         <!-- 季節 -->
         <!-- 季節 -->
-    < class="form-group">
-      <label>季節 <span class="required">*</span></label>
-      <span class="form__label--required">必須</span>
+    <div class="form-group">
+      <div class="form-label">
+        <label>季節 </label>
+        <span class="form__label--required">必須</span>
+        <P class="form__label--selection">複数選択可</P>
+      </div>
       <div class="checkbox-group">
         @foreach($seasons as $season)
             <label>
@@ -77,12 +88,15 @@
             @endforeach
            </div>
           @endif
-       </div>        
+       </div> 
+     </div>       
 
        <!-- 商品説明 -->
         <div class="form-group">
-            <label for="description">商品説明 <span class="required">*</span></label>
+          <div class="form-label">
+            <label for="description">商品説明 </label>
             <span class="form__label--required">必須</span>
+          </div>
             <textarea name="description" id="description" rows="4" >{{ old('description') }}</textarea>
             
            @if($errors->has('description'))
