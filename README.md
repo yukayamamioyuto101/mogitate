@@ -7,6 +7,7 @@
 2.cd mogitate
 
 3.docker-compose build
+
   docker-compose up -d
   
 
