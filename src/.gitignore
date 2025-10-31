@@ -10,7 +10,6 @@
 !/storage/framework/views
 /vendor
 /docker/mysql/data/
-docker/mysql/data_backup/
 /.idea
 /.vscode
 .env
