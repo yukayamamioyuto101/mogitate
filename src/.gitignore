@@ -8,9 +8,9 @@
 !/storage/framework/cache
 !/storage/framework/sessions
 !/storage/framework/views
-/bootstrap/cache/*
 /vendor
 /docker/mysql/data/
+docker/mysql/data_backup/
 /.idea
 /.vscode
 .env
